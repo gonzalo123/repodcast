@@ -4,6 +4,8 @@ I like building small proof-of-concept projects. Writing the code is usually the
 
 That’s the idea.
 
+![logo](img/logo.png)
+
 Repodcast is a command-line application that receives a local folder or a public GitHub repository and creates a narrated technical video about it. It scans the source, asks Claude on AWS Bedrock to write the episode, generates two voices with Amazon Polly, creates subtitles and renders the final MP4 with Remotion.
 
 This is the kind of command I wanted to run:
