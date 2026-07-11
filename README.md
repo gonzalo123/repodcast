@@ -1,4 +1,4 @@
-# Turning a GitHub repository into a video podcast with Python, AWS Bedrock, Polly and Remotion
+# Turning a code repository into a video podcast with Python, Remotion, AWS Bedrock and Polly
 
 I like building small proof-of-concept projects. Writing the code is usually the fun part; explaining the project afterwards is another story. Normally, I write a post like this one, but this time I wanted to try something different: a narrated video explaining the code and the project’s architecture. Something like a video podcast with two synthetic voices, accompanied by a presentation of the project.
 
