@@ -12,7 +12,9 @@ class Episode(BaseModel):
     source_commit: str | None = None
     source_url: str | None = None
     source_repository: str | None = None
+    source_paths: list[str] = Field(default_factory=list)
     intro_duration_seconds: int = Field(default=4, ge=0)
+    outro_duration_seconds: int = Field(default=4, ge=0)
 
     @model_validator(mode="after")
     def indexes_are_sequential(self) -> "Episode":

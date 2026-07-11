@@ -72,6 +72,14 @@ class BuildVideo:
                 "source_commit": commit_sha,
                 "source_url": source_url,
                 "source_repository": repository.name,
+                "source_paths": list(
+                    dict.fromkeys(
+                        [
+                            *(source.path for source in repository.interesting_files),
+                            *repository.source_tree,
+                        ]
+                    )
+                )[:8],
             }
         )
         self.progress(BuildEvent("episode", detail=f"{len(episode.slides)} scenes"))

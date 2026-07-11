@@ -127,6 +127,14 @@ def episode(
             "source_commit": repository.commit_sha,
             "source_url": repository.source_url,
             "source_repository": repository.name,
+            "source_paths": list(
+                dict.fromkeys(
+                    [
+                        *(source.path for source in repository.interesting_files),
+                        *repository.source_tree,
+                    ]
+                )
+            )[:8],
         }
     )
     _write_model(result, out)

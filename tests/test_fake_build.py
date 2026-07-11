@@ -18,4 +18,5 @@ def test_fake_prepare_creates_all_intermediate_artifacts(tmp_path: Path) -> None
     assert len(artifacts.audio_files) == 7
     assert episode.source_commit == "abc123"
     assert episode.source_repository == "repository"
+    assert episode.source_paths == ["README.md"]
     assert any(slide.visual is not None for slide in episode.slides)
