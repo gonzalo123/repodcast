@@ -51,7 +51,7 @@ h1 {font-size:94px; line-height:1.03; letter-spacing:-.055em; margin:0 0 54px; m
 .flowEdges line.isActive {stroke:#7dd3fc;stroke-width:3;filter:drop-shadow(0 0 7px #22d3eeaa)}
 .flowSignal {fill:#ecfeff;filter:drop-shadow(0 0 9px #22d3ee)}
 .flowEdges marker path {fill:#7dd3fc}
-.flowNode {position:absolute;width:190px;height:118px;padding:16px 16px;border:1px solid #454864;border-radius:17px;background:#151827;box-shadow:0 16px 45px #0008;text-align:center;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
+.flowNode {position:absolute;width:190px;height:118px;padding:16px 16px;border:1px solid #454864;border-radius:17px;background:#151827;box-shadow:0 16px 45px #0008;text-align:center;overflow:visible;display:flex;flex-direction:column;justify-content:center}
 .flowNode.isActive {border-color:#7dd3fc;background:linear-gradient(145deg,#182235,#111827);box-shadow:0 18px 55px #0009,0 0 0 1px #22d3ee30,0 0 34px #22d3ee18}
 .flowNode.isPassed {border-color:#454f67}
 .flowNode strong {display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere;font-size:22px;line-height:1.1;color:#f5f3ff}
