@@ -5,7 +5,7 @@ from src.domain.subtitle import SubtitleCue
 
 
 def cues_from_episode(episode: Episode) -> list[SubtitleCue]:
-    start = 0.0
+    start = float(episode.intro_duration_seconds)
     cues = []
     for slide in episode.slides:
         end = start + slide.duration_seconds

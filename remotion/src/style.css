@@ -1,6 +1,15 @@
 :root {font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #f7f7fb; background: #090a12;}
 * {box-sizing: border-box;}
 .video,.scene {background: radial-gradient(circle at 78% 14%, #18122f 0, #090a12 45%, #06070c 100%); overflow: hidden;}
+.intro {background:radial-gradient(circle at 78% 14%,#18122f 0,#090a12 45%,#06070c 100%);overflow:hidden;padding:72px 96px;}
+.introStage {position:relative;z-index:2;height:100%;display:grid;grid-template-rows:auto 1fr auto;}
+.personalBrand {color:#f7f7fb;font:700 28px ui-monospace,monospace;letter-spacing:-.04em;min-height:36px;}
+.introCursor {display:inline-block;margin-left:3px;color:#a78bfa;font-size:.82em;}
+.introCopy {align-self:center;max-width:1500px;}
+.introEyebrow {margin-bottom:28px;color:#a78bfa;font:500 18px ui-monospace,monospace;letter-spacing:.18em;}
+.introCopy h1 {margin:0 0 30px;max-width:1500px;font-size:112px;line-height:1.02;letter-spacing:-.055em;background:linear-gradient(100deg,#fff 20%,#a78bfa 90%);color:transparent;background-clip:text;}
+.introCopy p {margin:0;color:#a6a8b8;font-size:34px;}
+.introRepository {justify-self:end;color:#8c8fa3;font:500 18px ui-monospace,monospace;letter-spacing:.08em;}
 .scene {padding: 72px 96px;}
 header {display:flex; justify-content:space-between; color:#8c8fa3; font:500 18px ui-monospace, monospace; letter-spacing:.12em; position:relative; z-index:2;}
 .brand {color:#a78bfa;}

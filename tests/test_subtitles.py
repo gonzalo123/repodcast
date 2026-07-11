@@ -17,7 +17,8 @@ def test_subtitles_use_accumulated_slide_durations(tmp_path: Path) -> None:
     cues = cues_from_episode(episode)
     srt = write_srt(cues, tmp_path / "subtitles.srt")
     vtt = write_vtt(cues, tmp_path / "subtitles.vtt")
-    assert "00:00:18,000 --> 00:00:42,000" in srt.read_text()
+    assert "00:00:04,000 --> 00:00:22,000" in srt.read_text()
+    assert "00:00:22,000 --> 00:00:46,000" in srt.read_text()
     assert vtt.read_text().startswith("WEBVTT")
 
 

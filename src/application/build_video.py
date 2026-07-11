@@ -67,7 +67,13 @@ class BuildVideo:
         )
         self.progress(BuildEvent("episode", completed=0))
         episode = self.ai.generate_episode(repository, title, minutes, focus)
-        episode = episode.model_copy(update={"source_commit": commit_sha})
+        episode = episode.model_copy(
+            update={
+                "source_commit": commit_sha,
+                "source_url": source_url,
+                "source_repository": repository.name,
+            }
+        )
         self.progress(BuildEvent("episode", detail=f"{len(episode.slides)} scenes"))
         self.progress(BuildEvent("audio", completed=0, total=len(episode.slides)))
         audio = AudioRenderer(self.tts).render(

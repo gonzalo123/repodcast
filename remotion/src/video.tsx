@@ -27,10 +27,54 @@ type Slide = {
 type FlowNode = {id: string; label: string; path?: string | null};
 type FlowEdge = {from_id: string; to_id: string};
 type ArchitectureFlow = {type: 'flow'; nodes: FlowNode[]; edges: FlowEdge[]};
-type Episode = {title: string; slides: Slide[]; source_commit?: string | null};
+type Episode = {
+  title: string;
+  slides: Slide[];
+  source_commit?: string | null;
+  source_url?: string | null;
+  source_repository?: string | null;
+  intro_duration_seconds?: number;
+};
 export type VideoProps = {episode: Episode; audioFiles: string[]};
 
 const supportedLanguages = new Set(['markup', 'bash', 'css', 'javascript', 'typescript', 'jsx', 'tsx', 'python', 'json', 'yaml', 'toml', 'java', 'go', 'rust', 'php', 'ruby', 'sql']);
+
+const repositoryLabel = (sourceUrl?: string | null) => {
+  if (!sourceUrl) return null;
+  return sourceUrl
+    .replace(/^https?:\/\/(?:www\.)?github\.com\//, '')
+    .replace(/\.git$/, '')
+    .replace(/\/$/, '');
+};
+
+const Intro = ({episode}: {episode: Episode}) => {
+  const frame = useCurrentFrame();
+  const {fps} = useVideoConfig();
+  const durationInFrames = (episode.intro_duration_seconds ?? 4) * fps;
+  const titleEntrance = spring({frame: frame - 18, fps, config: {damping: 18, mass: 0.8}});
+  const metaEntrance = spring({frame: frame - 30, fps, config: {damping: 20}});
+  const exit = interpolate(frame, [durationInFrames - 15, durationInFrames], [1, 0], {extrapolateLeft: 'clamp'});
+  const signature = 'gonzalo123';
+  const visibleSignature = signature.slice(0, Math.max(0, Math.floor(frame / 2)));
+  const cursorVisible = Math.floor(frame / 10) % 2 === 0;
+  const repository = repositoryLabel(episode.source_url) ?? episode.source_repository;
+
+  return <AbsoluteFill className="intro" style={{opacity: exit}}>
+    <div className="orb orbOne" />
+    <div className="orb orbTwo" />
+    <div className="introStage">
+      <div className="personalBrand">
+        {visibleSignature}<span className="introCursor" style={{opacity: cursorVisible ? 1 : 0}}>█</span>
+      </div>
+      <div className="introCopy" style={{opacity: titleEntrance, transform: `translateY(${(1 - titleEntrance) * 45}px)`}}>
+        <div className="introEyebrow">REPODCAST · TECHNICAL WALKTHROUGH</div>
+        <h1>{episode.title}</h1>
+        <p>A repository, explained.</p>
+      </div>
+      {repository && <div className="introRepository" style={{opacity: metaEntrance}}>{repository}</div>}
+    </div>
+  </AbsoluteFill>;
+};
 
 const CodeBlock = ({code, language, path}: {code: string; language?: string | null; path?: string | null}) => {
   const frame = useCurrentFrame();
@@ -142,14 +186,18 @@ const Scene = ({slide, total, audio, commit}: {slide: Slide; total: number; audi
   );
 };
 
-export const RepodcastVideo = ({episode, audioFiles}: VideoProps) => (
-  <AbsoluteFill className="video">
+export const RepodcastVideo = ({episode, audioFiles}: VideoProps) => {
+  const introDurationInFrames = (episode.intro_duration_seconds ?? 4) * 30;
+  return <AbsoluteFill className="video">
     <Series>
+      {introDurationInFrames > 0 && <Series.Sequence durationInFrames={introDurationInFrames}>
+        <Intro episode={episode} />
+      </Series.Sequence>}
       {episode.slides.map((slide, index) => (
         <Series.Sequence key={slide.index} durationInFrames={slide.duration_seconds * 30}>
           <Scene slide={slide} total={episode.slides.length} audio={audioFiles[index]} commit={episode.source_commit} />
         </Series.Sequence>
       ))}
     </Series>
-  </AbsoluteFill>
-);
+  </AbsoluteFill>;
+};

@@ -122,7 +122,13 @@ def episode(
     assert isinstance(repository, RepositorySummary)
     client = FakeAiClient() if fake_ai else BedrockAiClient(Settings())
     result = client.generate_episode(repository, title, minutes, focus)
-    result = result.model_copy(update={"source_commit": repository.commit_sha})
+    result = result.model_copy(
+        update={
+            "source_commit": repository.commit_sha,
+            "source_url": repository.source_url,
+            "source_repository": repository.name,
+        }
+    )
     _write_model(result, out)
     console.print(f"[green]✓[/green] Episode plan: [cyan]{out}[/cyan]")
 
