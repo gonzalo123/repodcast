@@ -16,3 +16,4 @@ build/
 node_modules/
 .remotion/
 npm-debug.log*
+.codegraph/
