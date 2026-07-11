@@ -144,6 +144,7 @@ The LLM writes the story. Python keeps it attached to the repository. Polly give
 
 
 Example video of the generated podcast for this repository:
-![demo](https://www.youtube.com/watch?v=fc8IVhr6bT0)
+
+[![Watch the generated podcast video](https://img.youtube.com/vi/fc8IVhr6bT0/maxresdefault.jpg)](https://www.youtube.com/watch?v=fc8IVhr6bT0)
 
 And that's all. Full source code is available in my [GitHub](https://github.com/gonzalo123/repodcast).
