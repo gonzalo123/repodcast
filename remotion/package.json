@@ -1,0 +1,20 @@
+{
+  "name": "repodcast-remotion",
+  "private": true,
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.487",
+    "@remotion/media": "4.0.487",
+    "prism-react-renderer": "^2.4.1",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "remotion": "4.0.487"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.16",
+    "typescript": "5.9.3"
+  }
+}
