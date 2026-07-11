@@ -31,6 +31,9 @@ jobs:
       - name: Install Poetry
         run: pip install poetry==2.3.2
 
+      - name: Install media tools
+        run: sudo apt-get update && sudo apt-get install --yes ffmpeg
+
       - name: Install dependencies
         run: |
           poetry install --no-interaction
