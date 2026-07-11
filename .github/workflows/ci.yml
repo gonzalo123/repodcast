@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: remotion/package-lock.json
+
+      - name: Install Poetry
+        run: pip install poetry==2.3.2
+
+      - name: Install dependencies
+        run: |
+          poetry install --no-interaction
+          npm ci --prefix remotion --no-audit --no-fund
+
+      - name: Lint Python
+        run: poetry run ruff check .
+
+      - name: Type-check Python
+        run: poetry run mypy src
+
+      - name: Test Python
+        run: poetry run pytest
+
+      - name: Type-check Remotion
+        run: npm --prefix remotion run typecheck

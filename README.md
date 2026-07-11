@@ -1,5 +1,8 @@
 # Turning a GitHub repository into a video podcast with Python, AWS Bedrock, Polly and Remotion
 
+[![CI](https://github.com/gonzalo123/repodcast/actions/workflows/ci.yml/badge.svg)](https://github.com/gonzalo123/repodcast/actions/workflows/ci.yml)
+[![Publish container](https://github.com/gonzalo123/repodcast/actions/workflows/publish-container.yml/badge.svg)](https://github.com/gonzalo123/repodcast/actions/workflows/publish-container.yml)
+
 I like building small proof-of-concept projects. Writing the code is usually the fun part; explaining the project afterwards is another story. Normally, I write a post like this one, but this time I wanted to try something different: a narrated video explaining the code and the project’s architecture. Something like a video podcast with two synthetic voices, accompanied by a presentation of the project.
 
 That’s the idea.
@@ -141,3 +144,38 @@ But it is also the kind of over-engineering I like. The result is not a presenta
 The LLM writes the story. Python keeps it attached to the repository. Polly gives it voices. Remotion makes it visible.
 
 And that's all. Full source code is available in this repository.
+
+## Run it
+
+Repodcast requires Python 3.13, Node.js 20, FFmpeg and access to AWS Bedrock and
+Amazon Polly. Install the dependencies and copy the environment template:
+
+```bash
+poetry install
+npm ci --prefix remotion
+cp .env.example .env
+poetry run repodcast build owner/repository --minutes 2 --out dist/video.mp4
+```
+
+For a local end-to-end run without AWS calls, use the deterministic adapters:
+
+```bash
+poetry run repodcast build . --minutes 1 --out dist/demo.mp4 --fake-ai --fake-audio
+```
+
+## Docker
+
+Versioned images are published to GitHub Container Registry:
+
+```bash
+docker pull ghcr.io/gonzalo123/repodcast:latest
+docker run --rm \
+  -v "$PWD:/workspace" \
+  -v "$HOME/.aws:/home/repodcast/.aws:ro" \
+  ghcr.io/gonzalo123/repodcast:latest \
+  build owner/repository --minutes 2 --out /workspace/dist/video.mp4
+```
+
+Every push to `main` runs linting, strict type checks and the test suite. Tags
+matching `v*` build an attested multi-stage Docker image and publish semantic
+version and `latest` tags to GHCR.
