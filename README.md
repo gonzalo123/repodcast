@@ -142,4 +142,8 @@ But it is also the kind of over-engineering I like. The result is not a presenta
 
 The LLM writes the story. Python keeps it attached to the repository. Polly gives it voices. Remotion makes it visible.
 
+
+Example video of the generated podcast for this repository:
+![demo](https://www.youtube.com/watch?v=fc8IVhr6bT0)
+
 And that's all. Full source code is available in my [GitHub](https://github.com/gonzalo123/repodcast).
